@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 const { LimitedArray, getIndexBelowMax } = require('./hash-table-helpers');
+const {LinkedList} = require('./linked-list');
 
 class HashTable {
   constructor(limit = 8) {
@@ -36,7 +37,7 @@ class HashTable {
   insert(key, value) {
     if (this.capacityIsFull()) this.resize();
     const index = getIndexBelowMax(key.toString(), this.limit);
-    let bucket = this.storage.get(index) || [];
+    let bucket = this.storage.get(index) || new LinkedList();
 
     bucket = bucket.filter(item => item[0] !== key);
     bucket.push([key, value]);
